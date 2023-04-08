@@ -28,7 +28,7 @@ $ ./mvnw spring-boot:build-image -Pnative
 Then, you can run the app like any other container:
 
 ```
-$ docker run --rm springboot-three:0.0.1-SNAPSHOT
+$ docker run --rm springboot-3.x.x:0.0.1-SNAPSHOT
 ```
 
 ### Executable with Native Build Tools
@@ -45,7 +45,7 @@ $ ./mvnw native:compile -Pnative
 
 Then, you can run the app as follows:
 ```
-$ target/springboot-three
+$ target/springboot-3.x.x
 ```
 
 You can also run your existing tests suite in a native image.
