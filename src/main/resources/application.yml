@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: @project.name@
+    jsonplaceHolder:
+      host: https://jsonplaceholder.typicode.com/
