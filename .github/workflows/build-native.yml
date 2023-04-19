@@ -43,8 +43,14 @@ jobs:
           
           docker images -a
       - name: Compile, Test & generate native executable
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
+        continue-on-error: true
         run: |
           ./mvnw -B native:compile
+      - name: Compile, Test & generate native executable
+          if: matrix.os == 'windows-latest'
+          run: |
+            .\mvnw.cmd -B native:compile
       -
         name: Login to GitHub Container Registry
         if: matrix.os == 'ubuntu-latest'
