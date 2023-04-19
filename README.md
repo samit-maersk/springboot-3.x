@@ -129,7 +129,7 @@ $ ./mvnw test -PnativeTest
 
 Other supported command
 
-Generate a native executable with linux
+### Generate a native executable with linux
 
 ```shell
 docker run --rm -v $(pwd):/usr/myapp --workdir /usr/myapp -it --entrypoint sh ghcr.io/graalvm/native-image:22.3.1
@@ -144,4 +144,13 @@ docker run --name ubuntu --rm -v $(pwd)/ARM-aarch64:/usr/myapp --workdir /usr/my
 docker stats --all --format "table {{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}" ubuntu
 
 while true;do curl localhost:8080/user | jq .;done
+```
+
+### Generate a native image
+follow the [github pipeline](.github/workflows/native-image.yml)
+
+```shell
+docker run --name springboot-3-x-x -p 8080:8080 -m 200m --cpus=".5" --rm ghcr.io/samit-maersk/springboot-3.x.x:190420232041
+
+docker stats --all --format "table {{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}" springboot-3-x-x
 ```
