@@ -8,8 +8,10 @@ on:
 
 jobs:
   build:
-    name: Maven build
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
@@ -21,6 +23,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Compile, Test & Build
+        if: matrix.os == 'ubuntu-latest'
         run: |
           echo "GRAALVM_HOME: $GRAALVM_HOME"
           echo "JAVA_HOME: $JAVA_HOME"
@@ -35,10 +38,17 @@ jobs:
           docker images -a
       -
         name: Login to GitHub Container Registry
+        if: matrix.os == 'ubuntu-latest'
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: docker push
-        run: docker push ghcr.io/samit-maersk/${{github.event.repository.name}}
+        if: matrix.os == 'ubuntu-latest'
+        run: docker push -a ghcr.io/samit-maersk/${{github.event.repository.name}}
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.os }}
+          path: target/springboot-3.x.x
