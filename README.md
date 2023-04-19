@@ -126,3 +126,11 @@ To run your existing tests in a native image, run the following goal:
 ```
 $ ./mvnw test -PnativeTest
 ```
+
+Other supported command
+
+Generate a native executable with linux/graalVM
+```shell
+docker run --rm -v $(pwd):/usr/myapp --workdir /usr/myapp -it --entrypoint sh ghcr.io/graalvm/native-image:22.3.1
+docker run --rm -v $(pwd)/target:/usr/myapp --workdir /usr/myapp ubuntu ./springboot-3.x.x
+```
