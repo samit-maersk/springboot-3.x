@@ -12,6 +12,10 @@ jobs:
       matrix:
         os: [ ubuntu-latest, windows-latest, macos-latest ]
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - uses: actions/checkout@v3
       - uses: graalvm/setup-graalvm@v1
@@ -22,7 +26,7 @@ jobs:
           cache: 'maven'
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Compile, Test & Build
+      - name: Compile, Test & generate native image
         if: matrix.os == 'ubuntu-latest'
         run: |
           echo "GRAALVM_HOME: $GRAALVM_HOME"
@@ -33,9 +37,20 @@ jobs:
           
           ./mvnw -B spring-boot:build-image \
               -Pnative \
-              -Dspring-boot.build-image.imageName=ghcr.io/samit-maersk/${{github.event.repository.name}}:$(date +%d%m%Y%H%M)
+              -Dspring-boot.build-image.imageName=ghcr.io/${{ github.actor }}/${{github.event.repository.name}}:$(date +%d%m%Y%H%M)
           
           docker images -a
+      - name: Compile, Test & generate native executable
+        run: |
+          echo "GRAALVM_HOME: $GRAALVM_HOME"
+          echo "JAVA_HOME: $JAVA_HOME"
+          java --version
+          gu --version
+          native-image --version
+          
+          ./mvnw -B native:compile
+          
+          ls -al target/
       -
         name: Login to GitHub Container Registry
         if: matrix.os == 'ubuntu-latest'
