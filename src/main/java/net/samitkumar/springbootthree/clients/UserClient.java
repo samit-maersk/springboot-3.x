@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 
 @HttpExchange(url = "/users", accept = MediaType.APPLICATION_JSON_VALUE, contentType = MediaType.APPLICATION_JSON_VALUE)
 public interface UserClient {
-    @GetExchange("")
+    @GetExchange
     Flux<User> getAll();
 
     @GetExchange("/{id}")
