@@ -129,8 +129,19 @@ $ ./mvnw test -PnativeTest
 
 Other supported command
 
-Generate a native executable with linux/graalVM
+Generate a native executable with linux
+
 ```shell
 docker run --rm -v $(pwd):/usr/myapp --workdir /usr/myapp -it --entrypoint sh ghcr.io/graalvm/native-image:22.3.1
-docker run --rm -v $(pwd)/target:/usr/myapp --workdir /usr/myapp ubuntu ./springboot-3.x.x
+```
+
+To run it in a Linux container (Without JDK or JRE) and monitor the CPU and memory usage.
+
+```shell
+docker run --name ubuntu --rm -v $(pwd)/ARM-aarch64:/usr/myapp --workdir /usr/myapp -p 8080:8080 -m 100m --cpus=".5" ubuntu ./springboot-3.x.x
+
+
+docker stats --all --format "table {{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}" ubuntu
+
+while true;do curl localhost:8080/user | jq .;done
 ```
