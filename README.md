@@ -157,3 +157,7 @@ docker run --name springboot-3-x-x -p 8080:8080 -m 200m --cpus=".5" --rm ghcr.io
 
 docker stats --all --format "table {{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}" springboot-3-x-x
 ```
+
+### Helpful links 
+- [native executable metadata](https://www.graalvm.org/22.2/reference-manual/native-image/metadata/)
+- [spring-native-reference](https://docs.spring.io/spring-native/docs/current/reference/pdf/spring-native-reference.pdf)
