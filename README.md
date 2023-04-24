@@ -22,15 +22,18 @@ Before all these lets recap our self: How Java application Works (In short with 
   - HotSpot is an implementation of the JVM concept. It was originally developed by Sun, and now it is owned by Oracle. There are other implementations of the JVM specification, like JRockit, IBM J9, among many others.
 
 
-But When we talk about spring native or GraalVM native support on springboot 3.x.x, it's a bit different:
+But When we talk about spring native or GraalVM native support on springboot , The lifecycle of a Java/springboot application are bit different:
 To get GraalVM native support on springboot 3.x.x:
-- It's mandatory to use GraalVM JDK to compile our application into a native executable.
-- Once we have the `native executable` , We can run the executable in all the OS without JVM. 
+- It's mandatory to use GraalVM JDK to compile the application into a native executable.
+- Once we have the `native executable` , We can run the executable directly in the Operating System. 
+
+
+(GraalVM is not a new concept in Maersk , as we are using the GraalVM as runtime for our microservice from last 2-3 years)
 
 ### What is GraalVM?
 > https://www.graalvm.org/
-- GraalVM is a high-performance JDK ,designed to accelerate the execution of applications written in Java and other JVM languages
-- Also It's provide runtimes for JavaScript, Python, and a number of other popular languages
+- GraalVM is a high-performance JDK ,designed to accelerate the execution of applications written in Java and other JVM languages (Java, Kotlin, Scala, Groovy, Jython and etc)
+- GraalVM is not just that, It also provide runtimes for JavaScript, Python, and a number of other popular languages
 - It can also be used to compile Java applications into native executables.
 - GraalVM offers two ways to run Java applications: 
   - on the HotSpot JVM with Graal just-in-time (JIT) compiler 
